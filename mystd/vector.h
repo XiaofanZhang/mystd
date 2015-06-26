@@ -57,8 +57,9 @@ namespace mystd{
                     if ( finish != pos ){
                         construct(finish, *(finish - 1));
                         ++ finish;
+                        T x_copy = v;
                         std::copy_backward(position, finish - 2, finish - 1);
-                        *position = v;
+                        *position = x_copy;
                     } else {
                         // resize
                         const size_type old = size();
@@ -96,7 +97,7 @@ namespace mystd{
                     Alloc::destroy(finish);
                 }
 
-                void erase(iterator position){
+                iterator erase(iterator position){
                     if (position + 1 != finish)
                         std::copy(position + 1, finish, position);
                     --finish;
